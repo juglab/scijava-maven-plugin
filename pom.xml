@@ -9,11 +9,11 @@
 		<relativePath />
 	</parent>
 
-	<artifactId>scijava-maven-plugin</artifactId>
-	<version>1.1.1-SNAPSHOT</version>
+	<artifactId>scijava-maven-plugin-clone</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
-	<name>SciJava plugin for Maven</name>
+	<name>SciJava plugin for Maven clone</name>
 	<description>A plugin for managing SciJava-based projects.</description>
 	<url>https://github.com/scijava/scijava-maven-plugin</url>
 	<inceptionYear>2014</inceptionYear>
@@ -90,6 +90,25 @@
 		<system>Travis CI</system>
 		<url>https://travis-ci.com/scijava/scijava-maven-plugin</url>
 	</ciManagement>
+
+	<repositories>
+		<repository>
+			<id>scijava.public</id>
+			<url>https://maven.scijava.org/content/groups/public</url>
+		</repository>
+		<repository>
+			<id>test-maven</id>
+			<url>https://dais-maven.mpi-cbg.de/repository/test-maven/</url>
+		</repository>
+	</repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>test-maven</id>
+            <name>DAIS Maven test repository</name>
+            <url>https://dais-maven.mpi-cbg.de/repository/test-maven/</url>
+        </repository>
+    </distributionManagement>
 
 	<properties>
 		<package-name>org.scijava.maven</package-name>
@@ -299,42 +318,6 @@ Institute of Molecular Cell Biology and Genetics, and KNIME GmbH.</license.copyr
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-invoker-plugin</artifactId>
-				<version>1.8</version>
-				<configuration>
-					<!-- <debug>true</debug> -->
-					<showErrors>true</showErrors>
-					<streamLogs>true</streamLogs>
-					<properties>
-						<scijava-maven.version>${project.version}</scijava-maven.version>
-					</properties>
-					<projectsDirectory>src/it</projectsDirectory>
-					<cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
-					<pomIncludes>
-						<pomInclude>*/pom.xml</pomInclude>
-					</pomIncludes>
-					<settingsFile>src/it/settings.xml</settingsFile>
-					<localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
-					<preBuildHookScript>setup.bsh</preBuildHookScript>
-					<postBuildHookScript>verify.bsh</postBuildHookScript>
-					<goals>
-						<goal>install</goal>
-					</goals>
-				</configuration>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>install</goal>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-release-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
